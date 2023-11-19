@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #tableContainer {
+      text-align: center;
+    }
+
+    #tableImage {
+      width: 200px;
+      height: 200px;
+      transition: background-color 0.5s ease;
+    }
+
+    #button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #stopwatch {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    let isTableGreen = false;
+    let stopwatch;
+
+    function toggleTable() {
+      const tableImage = document.getElementById('tableImage');
+      const button = document.getElementById('button');
+
+      if (isTableGreen) {
+        // Reset stopwatch
+        clearInterval(stopwatch);
+        document.getElementById('stopwatch').innerText = '00:00:00';
+        // Change image back to default
+        tableImage.src = '1.png'; // Replace with your default image path
+        button.innerText = 'Table 1';
+        isTableGreen = false;
+      } else {
+        // Start stopwatch
+        let seconds = 0;
+        stopwatch = setInterval(function () {
+          seconds++;
+          const hours = Math.floor(seconds / 3600);
+          const minutes = Math.floor((seconds % 3600) / 60);
+          const remainingSeconds = seconds % 60;
+          document.getElementById('stopwatch').innerText = `${hours}:${minutes}:${remainingSeconds}`;
+        }, 1000);
+        // Change image to the green version
+        tableImage.src = '2.png'; // Replace with your green image path
+        button.innerText = ' Table 1';
+        isTableGreen = true;
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div id="tableContainer">
+    <img id="tableImage" src="1.png" alt="Table Image">
+    <div id="stopwatch">00:00:00</div>
+    <button id="button" onclick="toggleTable()">Table 1</button>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
